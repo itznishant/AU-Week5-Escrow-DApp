@@ -1,6 +1,16 @@
 app/dist
 app/artifacts
-cache
-node_modules
+
 artifacts
+cache
+
+node_modules
+
 *.bck
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
