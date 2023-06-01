@@ -30,6 +30,8 @@ function App() {
     const beneficiary = document.getElementById('beneficiary').value;
     const arbiter = document.getElementById('arbiter').value;
     const value = ethers.BigNumber.from(document.getElementById('wei').value);
+    // const etherValue = ethers.utils.formatUnits(document.getElementById('wei').value, 'ether');
+    // console.log(etherValue);
     const escrowContract = await deploy(signer, arbiter, beneficiary, value);
 
 
@@ -43,7 +45,7 @@ function App() {
           document.getElementById(escrowContract.address).className =
             'complete';
           document.getElementById(escrowContract.address).innerText =
-            "✓ It's been approved!";
+            "✓ Contract Approved!";
         });
 
         await approve(escrowContract, signer);
@@ -56,19 +58,19 @@ function App() {
   return (
     <>
       <div className="contract">
-        <h1> New Contract </h1>
+        <h1> Make Escrow Contract </h1>
         <label>
-          Arbiter Address
+          Arbiter (Address)
           <input type="text" id="arbiter" />
         </label>
 
         <label>
-          Beneficiary Address
+          Beneficiary (Address)
           <input type="text" id="beneficiary" />
         </label>
 
         <label>
-          Deposit Amount (in Wei)
+          Deposit Amount (Wei)
           <input type="text" id="wei" />
         </label>
 
@@ -81,7 +83,7 @@ function App() {
             newContract();
           }}
         >
-          Deploy
+          <b>Deploy</b>
         </div>
       </div>
 
@@ -89,7 +91,7 @@ function App() {
         <h1> Existing Contracts </h1>
 
         <div id="container">
-          {escrows.map((escrow) => {
+          {escrows.map( (escrow) => {
             return <Escrow key={escrow.address} {...escrow} />;
           })}
         </div>

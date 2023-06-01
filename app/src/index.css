@@ -5,17 +5,20 @@ body {
 }
 
 .contract, .existing-contracts {
+  background-color: aliceblue; /*#fff;*/
   margin: 20px;
   display: inline-block;
-  padding: 40px;
+  padding: 35px;
   border: 1px solid #ddd;
-  background-color: #fff;
+  border-radius: 1.5rem;
 }
 
 h1 {
+  color: cornflowerblue;
   margin: 10px;
   padding: 10px;
   border-bottom: 1px solid #eee;
+  text-align: center;
 }
 
 label {
@@ -38,16 +41,18 @@ input[type="text"] {
   font-weight: bold;
   text-transform: uppercase;
   margin: 20px;
+  margin-top: 30px;
   padding: 9px 25px;
-  font-size: 14px;
+  font-size: 16px;
   letter-spacing: 1px;
   cursor: pointer;
+  border-radius: 0.75rem;
 }
 
 .existing-contract ul {
   padding: 10px;
   margin: 20px;
-  background-color: #eee;
+  background-color: aliceblue; /*#eee;*/
 }
 
 .existing-contract ul > li {
@@ -57,14 +62,18 @@ input[type="text"] {
 }
 
 .existing-contract ul > li > div {
-  margin: 0 5px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .existing-contract ul > li > :first-child {
   font-weight: bold;
+  margin-left: 5px;
 }
 
 .existing-contract .complete {
   color: #5aa75a;
+  font-size: 20px;
   text-align: center;
+  margin-top: 12px;
 }

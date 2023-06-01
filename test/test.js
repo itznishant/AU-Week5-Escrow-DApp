@@ -6,11 +6,11 @@ describe('Escrow', function () {
   let depositor;
   let beneficiary;
   let arbiter;
-  const deposit = ethers.utils.parseEther('1');
+  const deposit = ethers.utils.parseEther('0.001');
   beforeEach(async () => {
     depositor = ethers.provider.getSigner(0);
     beneficiary = ethers.provider.getSigner(1);
-    arbiter = ethers.provider.getSigner(2);
+    arbiter = ethers.provider.getSigner(5);
     const Escrow = await ethers.getContractFactory('Escrow');
     contract = await Escrow.deploy(
       arbiter.getAddress(),

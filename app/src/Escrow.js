@@ -9,15 +9,15 @@ export default function Escrow({
     <div className="existing-contract">
       <ul className="fields">
         <li>
-          <div> Arbiter </div>
+          <div> Arbiter:  </div>
           <div> {arbiter} </div>
         </li>
         <li>
-          <div> Beneficiary </div>
+          <div> Beneficiary:  </div>
           <div> {beneficiary} </div>
         </li>
         <li>
-          <div> Value </div>
+          <div> Value:  </div>
           <div> {value} </div>
         </li>
         <div
@@ -29,7 +29,7 @@ export default function Escrow({
             handleApprove();
           }}
         >
-          Approve
+          <b>Approve</b>
         </div>
       </ul>
     </div>
