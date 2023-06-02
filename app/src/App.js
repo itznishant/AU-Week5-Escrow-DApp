@@ -29,17 +29,15 @@ function App() {
   async function newContract() {
     const beneficiary = document.getElementById('beneficiary').value;
     const arbiter = document.getElementById('arbiter').value;
-    const value = ethers.BigNumber.from(document.getElementById('wei').value);
-    // const etherValue = ethers.utils.formatUnits(document.getElementById('wei').value, 'ether');
-    // console.log(etherValue);
-    const escrowContract = await deploy(signer, arbiter, beneficiary, value);
-
+    const value = document.getElementById('amount').value;
+    const etherValue = ethers.utils.parseUnits(value.toString(), 'ether'); // Input to ETH
+    const escrowContract = await deploy(signer, arbiter, beneficiary, etherValue);
 
     const escrow = {
       address: escrowContract.address,
       arbiter,
       beneficiary,
-      value: value.toString(),
+      value: ethers.utils.formatUnits(etherValue, 'ether').toString(), // Format as ETH
       handleApprove: async () => {
         escrowContract.on('Approved', () => {
           document.getElementById(escrowContract.address).className =
@@ -60,18 +58,18 @@ function App() {
       <div className="contract">
         <h1> Make Escrow Contract </h1>
         <label>
-          Arbiter (Address)
-          <input type="text" id="arbiter" />
+          Arbiter
+          <input type="text" id="arbiter" placeholder="an arbiter address, example: 0xABC" />
         </label>
 
         <label>
-          Beneficiary (Address)
-          <input type="text" id="beneficiary" />
+          Beneficiary
+          <input type="text" id="beneficiary" placeholder="a beneficiary address, example: 0x123" />
         </label>
 
         <label>
-          Deposit Amount (Wei)
-          <input type="text" id="wei" />
+          Deposit Amount (ETH)
+          <input type="text" id="amount" placeholder="example: 0.001" />
         </label>
 
         <div
