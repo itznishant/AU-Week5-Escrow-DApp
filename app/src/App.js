@@ -2,6 +2,7 @@ import { ethers } from 'ethers';
 import { useEffect, useState } from 'react';
 import deploy from './deploy';
 import Escrow from './Escrow';
+import Footer from './Footer';
 
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 
@@ -11,7 +12,13 @@ export async function approve(escrowContract, signer) {
 }
 
 function App() {
-  const [escrows, setEscrows] = useState([]);
+  const [escrows, setEscrows] = useState( () => {
+    const escrowsStored = localStorage.getItem('escrowList');
+    return escrowsStored ? JSON.parse(escrowsStored) : [];
+  });
+
+
+
   const [account, setAccount] = useState();
   const [signer, setSigner] = useState();
 
@@ -25,6 +32,7 @@ function App() {
 
     getAccounts();
   }, [account]);
+
 
   async function newContract() {
     const beneficiary = document.getElementById('beneficiary').value;
@@ -49,9 +57,18 @@ function App() {
         await approve(escrowContract, signer);
       },
     };
+    
+    const addItemToList = (escrow) => {
+      setEscrows((escrowsStored) => [...escrowsStored, escrow]);
+    };
 
-    setEscrows([...escrows, escrow]);
+    addItemToList(escrow);
+
   }
+
+  useEffect(() => {
+    localStorage.setItem('escrowList', JSON.stringify(escrows));
+  }, [escrows]);
 
   return (
     <>
@@ -94,6 +111,8 @@ function App() {
           })}
         </div>
       </div>
+      
+      <div> <Footer /> </div>
     </>
   );
 }
