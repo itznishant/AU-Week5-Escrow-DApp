@@ -2,6 +2,7 @@ import { ethers } from 'ethers';
 import { useEffect, useState } from 'react';
 import deploy from './deploy';
 import Escrow from './Escrow';
+import Footer from './Footer';
 
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 
@@ -11,7 +12,13 @@ export async function approve(escrowContract, signer) {
 }
 
 function App() {
-  const [escrows, setEscrows] = useState([]);
+  const [escrows, setEscrows] = useState( () => {
+    const escrowsStored = localStorage.getItem('escrowList');
+    return escrowsStored ? JSON.parse(escrowsStored) : [];
+  });
+
+
+
   const [account, setAccount] = useState();
   const [signer, setSigner] = useState();
 
@@ -26,50 +33,60 @@ function App() {
     getAccounts();
   }, [account]);
 
+
   async function newContract() {
     const beneficiary = document.getElementById('beneficiary').value;
     const arbiter = document.getElementById('arbiter').value;
-    const value = ethers.BigNumber.from(document.getElementById('wei').value);
-    const escrowContract = await deploy(signer, arbiter, beneficiary, value);
-
+    const value = document.getElementById('amount').value;
+    const etherValue = ethers.utils.parseUnits(value.toString(), 'ether'); // Input to ETH
+    const escrowContract = await deploy(signer, arbiter, beneficiary, etherValue);
 
     const escrow = {
       address: escrowContract.address,
       arbiter,
       beneficiary,
-      value: value.toString(),
+      value: ethers.utils.formatUnits(etherValue, 'ether').toString(), // Format as ETH
       handleApprove: async () => {
         escrowContract.on('Approved', () => {
           document.getElementById(escrowContract.address).className =
             'complete';
           document.getElementById(escrowContract.address).innerText =
-            "✓ It's been approved!";
+            "✓ Contract Approved!";
         });
 
         await approve(escrowContract, signer);
       },
     };
+    
+    const addItemToList = (escrow) => {
+      setEscrows((escrowsStored) => [...escrowsStored, escrow]);
+    };
 
-    setEscrows([...escrows, escrow]);
+    addItemToList(escrow);
+
   }
+
+  useEffect(() => {
+    localStorage.setItem('escrowList', JSON.stringify(escrows));
+  }, [escrows]);
 
   return (
     <>
       <div className="contract">
-        <h1> New Contract </h1>
+        <h1> Make Escrow Contract </h1>
         <label>
-          Arbiter Address
-          <input type="text" id="arbiter" />
+          Arbiter
+          <input type="text" id="arbiter" placeholder="an arbiter address, example: 0xABC" />
         </label>
 
         <label>
-          Beneficiary Address
-          <input type="text" id="beneficiary" />
+          Beneficiary
+          <input type="text" id="beneficiary" placeholder="a beneficiary address, example: 0x123" />
         </label>
 
         <label>
-          Deposit Amount (in Wei)
-          <input type="text" id="wei" />
+          Deposit Amount (ETH)
+          <input type="text" id="amount" placeholder="example: 0.001" />
         </label>
 
         <div
@@ -81,7 +98,7 @@ function App() {
             newContract();
           }}
         >
-          Deploy
+          <b>Deploy</b>
         </div>
       </div>
 
@@ -89,11 +106,13 @@ function App() {
         <h1> Existing Contracts </h1>
 
         <div id="container">
-          {escrows.map((escrow) => {
+          {escrows.map( (escrow) => {
             return <Escrow key={escrow.address} {...escrow} />;
           })}
         </div>
       </div>
+      
+      <div> <Footer /> </div>
     </>
   );
 }
