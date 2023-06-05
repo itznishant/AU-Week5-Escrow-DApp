@@ -1,13 +1,13 @@
 {
   "name": "Escrow-DApp",
   "version": "1.0.0",
-  "description": "Alchemy Ethereum Bootcamp Week5: Escrow DApp",
+  "description": "Escrow DApp: Alchemy Ethereum Bootcamp Project",
+  "author": "Nishant Vemulakonda",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "Nishant Vemulakonda",
   "license": "ISC",
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^1.0.5",

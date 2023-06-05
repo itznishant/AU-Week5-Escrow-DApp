@@ -17,8 +17,6 @@ function App() {
     return escrowsStored ? JSON.parse(escrowsStored) : [];
   });
 
-
-
   const [account, setAccount] = useState();
   const [signer, setSigner] = useState();
 
