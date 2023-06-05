@@ -6,7 +6,7 @@ describe('Escrow', function () {
   let depositor;
   let beneficiary;
   let arbiter;
-  const deposit = ethers.utils.parseEther('0.001');
+  const deposit = ethers.utils.parseEther('0.1'); // ETH
   beforeEach(async () => {
     depositor = ethers.provider.getSigner(0); //deployer
     beneficiary = ethers.provider.getSigner(1);

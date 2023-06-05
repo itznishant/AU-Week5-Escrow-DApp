@@ -29,10 +29,12 @@ h1 {
 }
 
 label {
+  color: #aaa;
   display: flex;
   flex-direction: column;
+  font-weight: bold;
   text-transform: uppercase;
-  color: #aaa;
+  letter-spacing: 1.2px;
   margin: 20px;
 }
 
@@ -43,8 +45,8 @@ input[type="text"] {
 
 .button {
   background: #f58427;
-  color: white;
-  opacity: 70%;
+  color: #FFFFFF;
+  opacity: 95%;
   text-align: center;
   font-weight: bold;
   text-transform: uppercase;
@@ -59,9 +61,9 @@ input[type="text"] {
 
 .button:hover {
   opacity: 100%;
-  background: black;
-  color: red;
-  transition: color 0.4s;
+  background: #04AA6D;
+  color: #FFFFFF;
+  transition: color 0.5s;
 }
 
 .existing-contract ul {
@@ -104,7 +106,7 @@ input[type="text"] {
 
 .footer {
   background: black;
-  color: #fff;
+  color: #FFFFFF;
   width: 100%;
   font-size: 1rem;
   text-align: center;
@@ -131,7 +133,7 @@ input[type="text"] {
 .footer .row a {
   text-decoration: none;
   text-transform: uppercase;
-  color: white;
+  color: #FFFFFF;
   transition: color 0.5s;
 }
 
